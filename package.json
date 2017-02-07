@@ -1,0 +1,23 @@
+{
+  "name": "tracekit_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js --exec babel-node"
+  },
+  "author": "lachlanmackenzie",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-object-rest-spread": "^6.22.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "body-parser": "^1.16.0",
+    "nodemon": "^1.11.0",
+    "express": "^4.14.1",
+    "winston": "^2.3.1"
+  }
+}
