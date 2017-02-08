@@ -8,26 +8,41 @@ app.get('/', function(req, res){
 	res.send('Hello There!')
 })
 
-const onError = function(err){
-	new Error("oh jeeze ${err}")
-	console.log("this error");
+
+const onError = function(){
+	return new Error("dang")
 }
 
-onError("blah")
 
-TraceKit.report.subscribe(onError());
+winston.emitErrs = true;
 
 const logger = new (winston.Logger)({
 	transports: [
-		new (winston.transports.Console)({
+		new winston.transports.File({
+	    level: 'info',
+	    filename: './logs/all-logs.log',
+	    handleExceptions: true,
+	    json: true,
+	    maxsize: 5242880, //5MB
+	    maxFiles: 5,
+	    colorize: false
+    }),
+		new winston.transports.Console({
 			level: 'debug',
 			handleExceptions: true,
-			json: true,
+			json: false,
 			colorize: true
 		})
 	],
 	exitOnError: false
 })
+
+TraceKit.report.subscribe(logger.debug(onError()));
+
+onError()
+
+// logger.debug(onError())
+
 
 
 const port = process.env.PORT || 3000
