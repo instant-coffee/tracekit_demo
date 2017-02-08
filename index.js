@@ -13,6 +13,13 @@ const onError = function(){
 	return new Error("dang")
 }
 
+const onTRError = function(){
+	try {
+		throw new Error("jeepers")
+	} catch (e) {
+		TraceKit.report(e);
+	}	
+}
 
 winston.emitErrs = true;
 
@@ -37,12 +44,18 @@ const logger = new (winston.Logger)({
 	exitOnError: false
 })
 
+TraceKit.report.subscribe(onTRError);
+TraceKit.report.subscribe(onError);
+
 TraceKit.report.subscribe(logger.debug(onError()));
+TraceKit.report.subscribe(logger.info(onError()));
 
 onError()
+// onTRError()
 
 // logger.debug(onError())
 
+// setInterval(onTRError, 10000)
 
 
 const port = process.env.PORT || 3000
